@@ -1,0 +1,4 @@
+* babywm
+
+Barebones X11 (keep your Wayland to yourself) window manager, written on top of
+XLib (I know, I know...). Written as a POC learning experiment.
