@@ -3,6 +3,8 @@
 
 #include <X11/Xlib.h>
 
+#include "eventnames.h"
+
 
 int
 main(int argc, char *argv[])
