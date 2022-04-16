@@ -13,6 +13,7 @@ main(int argc, char *argv[])
 {
     int screen;
     Window root;
+    XEvent event;
 
     printf("opening display\n");
     if ((display = XOpenDisplay(NULL)) == NULL) {
@@ -22,6 +23,23 @@ main(int argc, char *argv[])
 
     screen = DefaultScreen(display);
     root = RootWindow(display, screen);
+
+    XSelectInput(display, root, SubstructureRedirectMask);
+
+    while (1) {
+        XNextEvent(display, &event);
+        switch (event.type) {
+            case MapRequest:
+                fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xmap.window);
+                XMapWindow(display, event.xmap.window);
+                break;
+            case ConfigureRequest:
+                fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xconfigure.window);
+                break;
+            default:
+                break;
+        }
+    }
 
     return 0;
 }
