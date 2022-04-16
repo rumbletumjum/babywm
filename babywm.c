@@ -5,11 +5,12 @@
 
 #include "eventnames.h"
 
+static Display *display;
+
 
 int
 main(int argc, char *argv[])
 {
-    Display *display;
     int screen;
     Window root;
 
