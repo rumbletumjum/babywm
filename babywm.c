@@ -4,7 +4,8 @@
 #include <X11/Xlib.h>
 
 
-int main(int argc, char *argv[])
+int
+main(int argc, char *argv[])
 {
     Display *display;
     int screen;
