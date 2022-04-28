@@ -31,10 +31,14 @@ main(int argc, char *argv[])
         switch (event.type) {
             case MapRequest:
                 fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xmap.window);
+                XSelectInput(display, event.xmap.window, EnterWindowMask|LeaveWindowMask);
                 XMapWindow(display, event.xmap.window);
                 break;
             case ConfigureRequest:
                 fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xconfigure.window);
+                break;
+            case EnterNotify:
+                fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xcrossing.window);
                 break;
             default:
                 break;
