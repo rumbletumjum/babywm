@@ -7,6 +7,23 @@
 
 static Display *display;
 
+void configure_request(XConfigureRequestEvent *ev);
+
+void
+configure_request(XConfigureRequestEvent *ev)
+{
+    XWindowChanges wc;
+
+    wc.x = ev->x;
+    wc.y = ev->y;
+    wc.width = ev->width;
+    wc.height = ev->height;
+    wc.border_width = ev->border_width;
+    wc.sibling = ev->above;
+    wc.stack_mode = ev->detail;
+
+    XConfigureWindow(display, ev->window, ev->value_mask, &wc);
+}
 
 int
 main(int argc, char *argv[])
@@ -36,6 +53,7 @@ main(int argc, char *argv[])
                 break;
             case ConfigureRequest:
                 fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xconfigure.window);
+                configure_request(&event.xconfigurerequest);
                 break;
             case EnterNotify:
                 fprintf(stderr, "Event: %s Window: %d\n", event_names[event.type], event.xcrossing.window);
